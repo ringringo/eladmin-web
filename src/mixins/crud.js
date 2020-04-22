@@ -158,20 +158,26 @@ export default {
      * 通用的删除
      */
     delMethod(id) {
+      this.delMethodMulId(id, id)
+    },
+    /**
+     * 通用的删除,多主键
+     */
+    delMethodMulId(id, idKey) {
       if (!this.beforeDelMethod()) {
         return
       }
       this.delLoading = true
       this.crudMethod.del(id).then(() => {
         this.delLoading = false
-        this.$refs[id].doClose()
+        this.$refs[idKey].doClose()
         this.dleChangePage()
         this.delSuccessNotify()
         this.afterDelMethod()
         this.init()
       }).catch(() => {
         this.delLoading = false
-        this.$refs[id].doClose()
+        this.$refs[idKey].doClose()
       })
     },
     afterDelMethod() {},
